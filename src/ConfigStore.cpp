@@ -106,8 +106,7 @@ bool ConfigStore::ReadConfig(const std::string& a_modName, ScriptObjectPtr a_con
 
 	_configStore[a_modName] = config;
 
-	const auto skyrimVM = RE::SkyrimVM::GetSingleton();
-	const auto vm = skyrimVM ? skyrimVM->impl : nullptr;
+	const auto vm = util::GetVM();
 	auto pagesVariable = a_configScript->GetProperty("Pages");
 
 	if (vm && pagesVariable) {

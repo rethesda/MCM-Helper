@@ -77,8 +77,7 @@ void Function::SendControlEvent(bool a_up, [[maybe_unused]] float a_holdTime)
 	if (a_up)
 		return;
 
-	const auto skyrimVM = RE::SkyrimVM::GetSingleton();
-	const auto vm = skyrimVM ? skyrimVM->impl : nullptr;
+	const auto vm = util::GetVM();
 
 	if (vm) {
 		Invoke(vm.get());
@@ -113,8 +112,7 @@ void CallGlobalFunction::Invoke(RE::BSScript::IVirtualMachine* a_vm, FunctionPar
 
 void SendEvent::SendControlEvent(bool a_up, float a_holdTime)
 {
-	const auto skyrimVM = RE::SkyrimVM::GetSingleton();
-	const auto vm = skyrimVM ? skyrimVM->impl : nullptr;
+	const auto vm = util::GetVM();
 	auto object = ScriptObject::FromForm(Form, ScriptName);
 
 	if (!vm || !object)

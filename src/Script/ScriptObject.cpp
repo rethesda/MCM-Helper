@@ -173,8 +173,7 @@ void ScriptObject::RegisterForModEvent(
 	RE::BSFixedString a_eventName,
 	RE::BSFixedString a_callbackName)
 {
-	const auto skyrimVM = RE::SkyrimVM::GetSingleton();
-	const auto vm = skyrimVM ? skyrimVM->impl : nullptr;
+	const auto vm = util::GetVM();
 
 	if (vm) {
 		auto args = RE::MakeFunctionArguments(std::move(a_eventName), std::move(a_callbackName));
@@ -186,8 +185,7 @@ void ScriptObject::RegisterForModEvent(
 
 void ScriptObject::UnregisterForModEvent(ScriptObjectPtr a_object, RE::BSFixedString a_eventName)
 {
-	const auto skyrimVM = RE::SkyrimVM::GetSingleton();
-	const auto vm = skyrimVM ? skyrimVM->impl : nullptr;
+	const auto vm = util::GetVM();
 
 	if (vm) {
 		auto args = RE::MakeFunctionArguments(std::move(a_eventName));

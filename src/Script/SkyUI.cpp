@@ -714,8 +714,7 @@ namespace SkyUI
 			return;
 		}
 
-		const auto skyrimVM = RE::SkyrimVM::GetSingleton();
-		const auto vm = skyrimVM ? skyrimVM->impl : nullptr;
+		const auto vm = util::GetVM();
 		if (!vm)
 			return;
 
@@ -745,8 +744,7 @@ namespace SkyUI
 
 			virtual void operator()([[maybe_unused]] RE::BSScript::Variable a_result) override
 			{
-				const auto skyrimVM = RE::SkyrimVM::GetSingleton();
-				const auto vm = skyrimVM ? skyrimVM->impl : nullptr;
+				const auto vm = util::GetVM();
 
 				if (!GetBool(self, "_waitForMessage"sv)) {
 					UnregisterForModEvent(self, "SKICP_messageDialogClosed"sv);

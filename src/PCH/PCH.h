@@ -35,6 +35,22 @@ namespace util
 	using SKSE::stl::report_and_fail;
 	using SKSE::stl::utf8_to_utf16;
 	using SKSE::stl::utf16_to_utf8;
+
+	[[nodiscard]] inline RE::BSTSmartPointer<RE::BSScript::IVirtualMachine> GetVM()
+	{
+		const auto skyrimVM = RE::SkyrimVM::GetSingleton();
+		if (!skyrimVM)
+			return nullptr;
+
+#ifndef SKYRIMVR
+		if (REL::Module::get().version() < SKSE::RUNTIME_1_7_99) {
+			return *reinterpret_cast<RE::BSTSmartPointer<RE::BSScript::IVirtualMachine>*>(
+				reinterpret_cast<std::byte*>(skyrimVM) + 0x200);
+		}
+#endif
+
+		return skyrimVM->impl;
+	}
 }
 
 #define DLLEXPORT __declspec(dllexport)
